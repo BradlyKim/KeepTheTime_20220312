@@ -17,7 +17,18 @@ class MainActivity : AppCompatActivity() {
         setValues()
     }
 
-    fun setupEvents() {}
+    fun setupEvents() {
+
+        binding.btnLogIn.setOnClickListener {
+
+            val inputId = binding.edtId.text.toString()
+            val inputPw = binding.edtPassword.toString()
+
+//            keepthetime.xyz 로그인 기능에, id/pw 보내자
+
+        }
+
+    }
 
     fun setValues() {}
 
