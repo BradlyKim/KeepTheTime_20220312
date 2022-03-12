@@ -1,11 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
     compileSdk 32
+
+    buildFeatures {
+        dataBinding = true
+    }
 
     defaultConfig {
         applicationId "com.neppplus.keepthetime_20220312"
