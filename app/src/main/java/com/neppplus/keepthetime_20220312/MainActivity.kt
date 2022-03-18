@@ -2,8 +2,15 @@ package com.neppplus.keepthetime_20220312
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.neppplus.keepthetime_20220312.api.APIList
+import com.neppplus.keepthetime_20220312.api.ServerAPI
 import com.neppplus.keepthetime_20220312.databinding.ActivityMainBinding
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
 //            keepthetime.xyz 로그인 기능에, id/pw 보내자
 
+            val myRetrofit = ServerAPI.getRetrofit()
+            val myApiList = myRetrofit.create(APIList::class.java)
+
+            myApiList.postRequestLogin(inputId, inputPw)
         }
 
     }
