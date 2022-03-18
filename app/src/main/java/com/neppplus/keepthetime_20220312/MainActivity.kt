@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_20220312
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.api.APIList
 import com.neppplus.keepthetime_20220312.api.ServerAPI
@@ -39,8 +40,16 @@ class MainActivity : AppCompatActivity() {
 
             myApiList.postRequestLogin(inputId, inputPw).enqueue(object : Callback<BasicResponse>{
                 override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-//                    로그인 결과가 성공이던 / 실패던 응답 (response 변수) 자체는 돌아온 경우,
-                    Log.d("응답확인", response.toString())
+//                    로그인 결과가 성공이던 / 실패던 응답 (response 변수) 자체는 돌아온 경우
+
+//                    로그인에 성공까지 했다면, 그 응답의 본문은 BasicResponse 형태로 변환되어 있다.
+                    if (response.isSuccessful){
+
+                        val br = response.body()!!    // 기본 분석 완료된 BasicResponse 를 br 변수에 담자. 
+
+                        Toast.makeText(this@MainActivity, br.message, Toast.LENGTH_SHORT).show()
+
+                    }
 
                 }
 
