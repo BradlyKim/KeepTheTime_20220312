@@ -36,7 +36,20 @@ class MainActivity : AppCompatActivity() {
             val myRetrofit = ServerAPI.getRetrofit()
             val myApiList = myRetrofit.create(APIList::class.java)
 
-            myApiList.postRequestLogin(inputId, inputPw)
+            myApiList.postRequestLogin(inputId, inputPw).enqueue(object : Callback<JSONObject>{
+                override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
+//                    로그인 결과가 성공이던 / 실패던 응답 (response 변수) 자체는 돌아온 경우,
+                    Log.d("응답확인", response.toString())
+
+                }
+
+                override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+//                    아예 물리적으로 연결 자체를 실패. id/pw 잘못 입력한 경우 아님 주의.
+
+                }
+
+
+            })
         }
 
     }
