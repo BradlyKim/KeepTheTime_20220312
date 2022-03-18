@@ -1,6 +1,7 @@
 package com.neppplus.keepthetime_20220312.api
 
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ServerAPI {
 
@@ -25,6 +26,7 @@ class ServerAPI {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)  // 기본 주소가 어디인지 세팅
+                    .addConverterFactory( GsonConverterFactory.create() )  // 서버가 주는 JSON 양식을 일반 자료형 or 클래스로 쉽게 변환해주는 도구 세팅
                     .build()  //  세팅이 모두 끝났으면, retrofit 객체로 만들어달라.
             }
 
