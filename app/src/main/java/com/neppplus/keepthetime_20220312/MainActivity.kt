@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220312
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setupEvents() {
+
+        binding.btnSignUp.setOnClickListener {
+
+            val myIntent = Intent(this, SignUpActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
         binding.btnLogIn.setOnClickListener {
 

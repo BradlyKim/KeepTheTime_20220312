@@ -2,6 +2,7 @@ package com.neppplus.keepthetime_20220312
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.databinding.ActivitySignUpBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
@@ -34,6 +35,12 @@ class SignUpActivity : BaseActivity() {
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
                 ) {
+
+                    if(response.isSuccessful) {
+//                        BaseActivity에서 미리 세팅해둔 this에 해당하는, mContext 변수 활용
+                        Toast.makeText(mContext, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+
+                    }
 
                 }
 
