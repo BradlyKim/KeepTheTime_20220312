@@ -24,6 +24,41 @@ class SignUpActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+//             도전과제 : 닉네임 중복확인 기능 추가
+        binding.btnNickNameCheck.setOnClickListener {
+
+            val inputNickname = binding.edtNickName.text.toString()
+
+            apiList.getRequestDuplicatedCheck("NICK_NAME", inputNickname).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                    if(response.isSuccessful){
+
+                        val br = response.body()!!
+
+                        Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+
+                    }
+                    else {
+
+                        val jsonObj = JSONObject( response.errorBody()!!.string() )
+                        val message = jsonObj.getString("message")
+
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+
+            })
+        }
+
         binding.btnEmailCheck.setOnClickListener {
 
 //            입력된 이메일 추출 > 서버의 중복확인 기능에 물어보자.
@@ -56,7 +91,6 @@ class SignUpActivity : BaseActivity() {
                         val message = jsonObj.getString("message")
 
                         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
-
 
                     }
                 }
@@ -92,7 +126,6 @@ class SignUpActivity : BaseActivity() {
                 override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
 
                 }
-
 
             })
 

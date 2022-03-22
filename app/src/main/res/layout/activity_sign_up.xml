@@ -55,12 +55,29 @@
             android:text="사용할 닉네임"
             android:layout_marginTop="10dp"/>
 
-        <EditText
-            android:id="@+id/edtNickName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="자유입력"
-            android:singleLine="true"/>
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edtNickName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="자유입력"
+                android:singleLine="true"/>
+
+            <Button
+                android:id="@+id/btnNickNameCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중복 확인"/>
+
+        </LinearLayout>
+
+
+
 
         <Button
             android:id="@+id/btnSignUp"
