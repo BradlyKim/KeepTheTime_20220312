@@ -64,6 +64,13 @@ class LoginActivity : BaseActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
+//                        메인화면으로 이동, 로그인화면 종료
+
+                        val myIntent = Intent(mContext, MainActivity::class.java)
+                        startActivity(myIntent)
+
+                        finish()
+
                     }
 
                 }
