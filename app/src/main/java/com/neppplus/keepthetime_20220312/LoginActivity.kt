@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_20220312
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.api.APIList
@@ -51,7 +52,17 @@ class LoginActivity : BaseActivity() {
 
                         val br = response.body()!!    // 기본 분석 완료된 BasicResponse 를 br 변수에 담자. 
 
-                        Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+
+//                        data > token 변수 로그로 찍어보기
+                        Log.d("토큰", br.data.token)
+
+//                        로그인한 사람의 닉네임을, 토스트로 띄워보기
+                        Toast.makeText(
+                            mContext,
+                            "${br.data.user.nick_name}님, 환영합니다!",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
 
