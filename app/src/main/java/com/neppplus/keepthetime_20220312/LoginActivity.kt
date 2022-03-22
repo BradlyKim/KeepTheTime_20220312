@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220312
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.neppplus.keepthetime_20220312.api.APIList
 import com.neppplus.keepthetime_20220312.api.ServerAPI
 import com.neppplus.keepthetime_20220312.databinding.ActivityLoginBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
+import com.neppplus.keepthetime_20220312.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +29,14 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.autoLoginCheckBox.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+//            isChecked변수에, 지금 체크 되었는지? 해제되었는지? 알려줌
+//            알려주는 값을, ContextUtil의 기능 활용해서 저장함
+            ContextUtil.setAutoLogin(mContext, isChecked)
+
+        }
 
         binding.btnSignUp.setOnClickListener {
 
