@@ -36,4 +36,9 @@ interface APIList {
         @Query("value") value: String,
         ) : Call<BasicResponse>
 
+    @GET("/user")
+    fun getRequestMyInfo(
+        @Header("X-Http-Token") type: String,
+    ) : Call<BasicResponse>
+
 }
