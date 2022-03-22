@@ -67,6 +67,9 @@ class LoginActivity : BaseActivity() {
 //                        data > token 변수 로그로 찍어보기
                         Log.d("토큰", br.data.token)
 
+//                        받아온 토큰값을 기기에 저장 => 나중에 많은 화면에서 활용
+                        ContextUtil.setToken(mContext, br.data.token)
+
 //                        로그인한 사람의 닉네임을, 토스트로 띄워보기
                         Toast.makeText(
                             mContext,
