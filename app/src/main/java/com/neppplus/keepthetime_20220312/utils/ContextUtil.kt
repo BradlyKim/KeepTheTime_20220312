@@ -26,6 +26,16 @@ class ContextUtil {
 
         }
 
+//        조회 기능 : getter => 다른 클래스가 끌어다 사용함
+        fun getAutoLogin( context: Context ) : Boolean {
+//          메모장을 열고, 저장된 변수를 리턴하자.
+            val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+
+//          저장된 자동로그인 데이터가 없다면 내보내줄 기본값도 설정해야함.
+            return pref.getBoolean( AUTO_LOGIN, false )
+
+        }
+
     }
 
 }
