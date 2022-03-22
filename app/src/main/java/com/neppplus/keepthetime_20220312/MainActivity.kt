@@ -34,6 +34,13 @@ class MainActivity : BaseActivity() {
         apiList.getRequestMyInfo(ContextUtil.getToken(mContext)).enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
+                if(response.isSuccessful){
+                    val br = response.body()!!
+
+                    binding.txtMyNickName.text = br.data.user.nick_name
+
+                }
+
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
