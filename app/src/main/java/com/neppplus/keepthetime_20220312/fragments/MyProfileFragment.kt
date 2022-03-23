@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_20220312.R
+import com.neppplus.keepthetime_20220312.databinding.FragmentMyProfileBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
 import com.neppplus.keepthetime_20220312.utils.ContextUtil
 import retrofit2.Call
@@ -15,12 +17,15 @@ import retrofit2.Response
 
 class MyProfileFragment : BaseFragment() {
 
+    lateinit var binding: FragmentMyProfileBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_profile, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,7 +53,7 @@ class MyProfileFragment : BaseFragment() {
 //                    프래그먼트에서 id를 붙여둔 이미지뷰를 끌어오는 방법?
 //                    프래그먼트의 데이터바인딩 세팅을 어떻게 할까?
 
-//                    Glide.with(mContext).load(br.data.user.profile_img).into()
+                    Glide.with(mContext).load(br.data.user.profile_img).into(binding.imgProfile)
 
                 }
 
