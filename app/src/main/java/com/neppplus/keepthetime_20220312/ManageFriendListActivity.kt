@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.databinding.ActivityManageFriendListBinding
+import com.neppplus.keepthetime_20220312.datas.UserData
 
 class ManageFriendListActivity : BaseActivity() {
 
     lateinit var binding: ActivityManageFriendListBinding
+
+//    내 친구 목록을 담아줄 그릇이 필요함
+    val myFriendList = ArrayList<UserData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +25,9 @@ class ManageFriendListActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+//        내 친구목록에 데이터 채우기
+//        => 서버가 실제로 내려주는 친구목록을 채워보자. (API 통신과 결합)
 
     }
 }
