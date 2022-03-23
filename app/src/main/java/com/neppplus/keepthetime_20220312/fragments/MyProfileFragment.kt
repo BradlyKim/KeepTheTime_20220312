@@ -55,6 +55,9 @@ class MyProfileFragment : BaseFragment() {
 
                     Glide.with(mContext).load(br.data.user.profile_img).into(binding.imgProfile)
 
+//                    프로필 닉네임 표시
+                    binding.txtNickName.text = br.data.user.nick_name
+
                 }
 
             }
@@ -63,9 +66,7 @@ class MyProfileFragment : BaseFragment() {
 
             }
 
-
         })
-
 
     }
 
