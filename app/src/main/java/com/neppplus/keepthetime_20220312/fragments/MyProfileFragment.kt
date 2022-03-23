@@ -1,5 +1,7 @@
 package com.neppplus.keepthetime_20220312.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +37,22 @@ class MyProfileFragment : BaseFragment() {
     }
 
     override fun setupEvents() {
+
+        binding.btnLogout.setOnClickListener {
+
+//            정말 로그아웃 할건지 확인받자
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("로그아웃")
+                .setMessage("정말 로그아웃 하시겠습니까?")
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+
+//                    실제 로그아웃 처리
+
+                })
+                .setNegativeButton("취소", null)
+                .show()
+
+        }
 
     }
 
