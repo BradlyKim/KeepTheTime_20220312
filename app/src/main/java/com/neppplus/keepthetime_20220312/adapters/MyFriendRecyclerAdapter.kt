@@ -10,7 +10,7 @@ import com.neppplus.keepthetime_20220312.R
 
 class MyFriendRecyclerAdapter(
     val mContext: Context,
-    val mList: List<UserData>  // 뷰 홀더 사용하면, resId 받지 않아도 됨.
+    val mList: ArrayList<com.neppplus.keepthetime_20220312.datas.UserData>  // 뷰 홀더 사용하면, resId 받지 않아도 됨.
 ) : RecyclerView.Adapter<MyFriendRecyclerAdapter.MyViewHolder>() {
 
 //    클래스 내부의 클래스(inner class) 제작 > MyFriendRecyclerAdapter가 혼자 사용
