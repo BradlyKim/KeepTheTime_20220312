@@ -2,9 +2,11 @@ package com.neppplus.keepthetime_20220312.adapters
 
 import android.content.Context
 import android.service.autofill.UserData
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.neppplus.keepthetime_20220312.R
 
 class MyFriendRecyclerAdapter(
     val mContext: Context,
@@ -15,9 +17,13 @@ class MyFriendRecyclerAdapter(
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
+        val view = LayoutInflater.from(mContext).inflate(R.layout.friend_list_item, parent, false)
+        return MyViewHolder(view)
 
     }
 
@@ -25,8 +31,6 @@ class MyFriendRecyclerAdapter(
 
     }
 
-    override fun getItemCount(): Int {
-
-    }
+    override fun getItemCount() = mList.size  // 목록의 갯수가 리턴
 
 }
