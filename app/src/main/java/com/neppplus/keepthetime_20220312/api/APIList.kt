@@ -38,7 +38,7 @@ interface APIList {
 
     @GET("/user")
     fun getRequestMyInfo(
-        @Header("X-Http-Token") type: String,
+        @Header("X-Http-Token") token: String,
     ) : Call<BasicResponse>
 
 //    토큰값을 매번 첨부하는 코드를 적기는 번거롭다
@@ -46,5 +46,6 @@ interface APIList {
 
     @GET("/user/friend")
     fun getRequestFriendList(
+        @Query("type") type: String,
     ) : Call<BasicResponse>
 }

@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.databinding.ActivityManageFriendListBinding
+import com.neppplus.keepthetime_20220312.datas.BasicResponse
 import com.neppplus.keepthetime_20220312.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ManageFriendListActivity : BaseActivity() {
 
@@ -29,5 +33,25 @@ class ManageFriendListActivity : BaseActivity() {
 //        내 친구목록에 데이터 채우기
 //        => 서버가 실제로 내려주는 친구목록을 채워보자. (API 통신과 결합)
 
+        getMyFriendListFromServer()
+
     }
+
+    fun getMyFriendListFromServer(){
+
+        apiList.getRequestFriendList(
+            "my"
+        ).enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+        })
+
+    }
+
 }
