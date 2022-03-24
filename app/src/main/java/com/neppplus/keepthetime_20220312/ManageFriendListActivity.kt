@@ -3,6 +3,7 @@ package com.neppplus.keepthetime_20220312
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.neppplus.keepthetime_20220312.adapters.MyFriendAdapter
 import com.neppplus.keepthetime_20220312.databinding.ActivityManageFriendListBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
 import com.neppplus.keepthetime_20220312.datas.UserData
@@ -16,6 +17,8 @@ class ManageFriendListActivity : BaseActivity() {
 
 //    내 친구 목록을 담아줄 그릇이 필요함
     val myFriendList = ArrayList<UserData>()
+
+    lateinit var mAdapter: MyFriendAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,9 @@ class ManageFriendListActivity : BaseActivity() {
 
         getMyFriendListFromServer()
 
+        mAdapter = MyFriendAdapter(mContext, R.layout.friend_list_item, myFriendList)
+        binding.myFriendListView.adapter = mAdapter
+
     }
 
     fun getMyFriendListFromServer(){
@@ -48,6 +54,9 @@ class ManageFriendListActivity : BaseActivity() {
 
                     val br = response.body()!!
                     myFriendList.addAll(br.data.friends)  // 서버가 주는 친구 목록을 > 화면의 ArrayList에 통째로 추가
+                    
+//                    리스트뷰의 어댑터 설정보다, 목록에 데이터 추가가 더 늦게 이루어질 수도 있다. 
+                    mAdapter.notifyDataSetChanged()  // 리스트뷰의 내용물 새로고침 처리
 
                 }
             }
