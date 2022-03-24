@@ -25,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
         mContext = this  // this 변수를 사용할 상황 : 무조건 mContext 를 대신 사용
 
 //    apiList 변수에 세팅
-        val retrofit = ServerAPI.getRetrofit()
+        val retrofit = ServerAPI.getRetrofit(mContext)
         apiList = retrofit.create(APIList::class.java)
 
     }

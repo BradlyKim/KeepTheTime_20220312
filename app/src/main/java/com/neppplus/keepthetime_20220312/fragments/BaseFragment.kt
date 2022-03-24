@@ -24,7 +24,7 @@ abstract class BaseFragment : Fragment() {
 
 //        레트로핏 세팅 => apiList 에 대입
 
-        val retrofit = ServerAPI.getRetrofit()
+        val retrofit = ServerAPI.getRetrofit(mContext)
         apiList = retrofit.create(APIList::class.java)
 
     }
