@@ -48,4 +48,10 @@ interface APIList {
     fun getRequestFriendList(
         @Query("type") type: String,
     ) : Call<BasicResponse>
+
+    @GET("/search/user")
+    fun getRequestSearchUser(
+        @Query("nickname") nickName: String,
+    ) : Call<BasicResponse>
+
 }
