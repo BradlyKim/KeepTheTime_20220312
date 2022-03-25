@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity() {
 
         binding.btnLogIn.setOnClickListener {
 
-            val inputId = binding.edtId.text.toString()
+            val inputId = binding.edtEmail.text.toString()
             val inputPw = binding.edtPassword.text.toString()
 
 //            keepthetime.xyz 로그인 기능에, id/pw 보내자

@@ -13,13 +13,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아이디"/>
+            android:text="이메일"/>
 
         <EditText
-            android:id="@+id/edtId"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="이메일 양식으로 입력"
+            android:hint="이메일 입력"
             android:inputType="textEmailAddress"/>
 
         <TextView
