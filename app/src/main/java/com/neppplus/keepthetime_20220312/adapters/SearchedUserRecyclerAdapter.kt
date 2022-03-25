@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_20220312.R
+import com.neppplus.keepthetime_20220312.api.APIList
+import com.neppplus.keepthetime_20220312.api.ServerAPI
 import com.neppplus.keepthetime_20220312.datas.UserData
 
 class SearchedUserRecyclerAdapter(
@@ -27,6 +29,17 @@ class SearchedUserRecyclerAdapter(
             Glide.with(mContext).load(data.profile_img).into(imgProfile)
 
             txtNickname.text = data.nick_name
+
+            btnRequestFriend.setOnClickListener {
+//                어댑터 내부에서, 버튼이 눌리면 할 일 설정
+
+//                서버의 친구 요청 기능 실행
+//                어댑터 내부이기에 : apiList 변수 상속X. 직접 만들어서 사용한다.
+
+                val retrofit = ServerAPI.getRetrofit(mContext)
+                val apiList = retrofit.create( APIList::class.java )
+
+            }
         }
 
     }
