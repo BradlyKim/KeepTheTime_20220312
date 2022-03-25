@@ -14,7 +14,7 @@ interface APIList {
     @FormUrlEncoded   // POST, PUT, PATCH - formData(앱코드: field) 에 데이터를 첨부시에 필요한 코드
     @POST("/user")
     fun postRequestLogin(
-        @Field("email") id: String,    //
+        @Field("email") email: String,    //
         @Field("password") pw: String,
     ) : Call<BasicResponse>    // 서버의 응답 본문 (body)을, BasicResponse 클래스 형태로 자동 변환
 
@@ -23,7 +23,7 @@ interface APIList {
     @FormUrlEncoded
     @PUT("/user")
     fun putRequestSignUp(
-        @Field("email") id: String,
+        @Field("email") email: String,
         @Field("password") pw: String,
         @Field("nick_name") nick: String,
     ) : Call<BasicResponse>
@@ -52,6 +52,12 @@ interface APIList {
     @GET("/search/user")
     fun getRequestSearchUser(
         @Query("nickname") nickName: String,
+    ) : Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("/user/friend")
+    fun postRequestAddFriend(
+        @Field("user_id") userId: Int,
     ) : Call<BasicResponse>
 
 }
