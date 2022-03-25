@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.databinding.ActivitySearchUserBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
+import com.neppplus.keepthetime_20220312.datas.UserData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,6 +13,8 @@ import retrofit2.Response
 class SearchUserActivity : BaseActivity() {
 
     lateinit var binding: ActivitySearchUserBinding
+
+    val mSearchedUserList = ArrayList<UserData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
