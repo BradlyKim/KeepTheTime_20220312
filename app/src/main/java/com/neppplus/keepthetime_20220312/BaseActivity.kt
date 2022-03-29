@@ -31,10 +31,15 @@ abstract class BaseActivity : AppCompatActivity() {
         apiList = retrofit.create(APIList::class.java)
 
 //    (액션바가 있는 화면이라면, 스플레시액티비티는 액션바X) 액션바도 설정
+//    코틀린의 null 관리: ?를 이용하면 이 변수가 실제로 있는가?하는 질문을 하는 역할을 함.
+//    => 실제로 있다면, 별개의 함수 (setCustomActionBar) 실행
 
-        if (supportActionBar != null) {
-            setCustomActionBar()
-        }
+    supportActionBar?.let {
+
+//        supportActionBar 가 null 이 아닐때 (실체가 있을때) 실행할 코드 : let {  }
+        setCustomActionBar()
+
+    }
 
     }
 
