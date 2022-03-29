@@ -1,6 +1,7 @@
 package com.neppplus.keepthetime_20220312
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -63,6 +64,9 @@ class MainActivity : BaseActivity() {
         mvp2a = MainViewPager2Adapter(this)
 
         binding.mainViewPager2.adapter = mvp2a
+
+//        상속받은 imgBack 숨김처리
+        imgBack.visibility = View.GONE
 
     }
 
