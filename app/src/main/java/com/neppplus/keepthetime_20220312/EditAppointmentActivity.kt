@@ -1,9 +1,11 @@
     package com.neppplus.keepthetime_20220312
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
@@ -64,6 +66,34 @@ import java.util.*
                 mSelectedDateTimeCal.get(Calendar.DAY_OF_MONTH)
             ).show()
 
+        }
+        
+        binding.txtTime.setOnClickListener { 
+            
+            val tsl = object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
+
+//                    선택된 일시에, 시간/분 저장 => 시간 항목에 hourOfDay, 분 항목에 minute 대입
+                    mSelectedDateTimeCal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    mSelectedDateTimeCal.set(Calendar.MINUTE, minute)
+
+//                    txtTime 문구를 "오후 7시 5분" 양식으로 가공 => SimpleDateFormat 사용하자
+                    val sdf = SimpleDateFormat("a h시 m분")
+
+                    binding.txtTime.text = sdf.format(mSelectedDateTimeCal.time)   // Date 형태인 time 변수 활용
+
+                }
+
+            }
+
+            val tpd = TimePickerDialog(
+                mContext,  // 어느 화면?
+                tsl,
+                12,
+                30,
+                false  // 시계가 24시간(true) 기준인지 12시간(false) 기준인지 지정하는 곳
+            ).show()
+            
         }
 
     }
