@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220312
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBar
@@ -23,6 +24,14 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        상속받아온 imgAdd의 이벤트 처리
+        imgAdd.setOnClickListener {
+
+            val myIntent = Intent(mContext, EditAppointmentActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
 //        바텀 네비게이션의 이동시 페이지 이동 연동 처리
 //
