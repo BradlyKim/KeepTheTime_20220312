@@ -25,6 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
 //    멤버변수 : 다른 화면들이 상속받아 활용하는 변수
     lateinit var txtTitle: TextView
     lateinit var imgBack: ImageView
+    lateinit var imgAdd: ImageView
 
 //    다른 화면들의 super.onCreate가 실행될때, 부가적으로 실행해줄 코드들 추가
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +74,7 @@ abstract class BaseActivity : AppCompatActivity() {
 //        커스텀뷰 적용 이후에 txtTitle 에 연결해줌. => 다른 화면들에 상속 완성
         txtTitle = defaultActionBar.customView.findViewById(R.id.txtTitle)
         imgBack = defaultActionBar.customView.findViewById(R.id.imgBack)
+        imgAdd = defaultActionBar.customView.findViewById(R.id.imgAdd)
 
 //        imgBack은 눌리면 할일이 모든 화면에서 동일
         imgBack.setOnClickListener {
