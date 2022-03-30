@@ -43,6 +43,9 @@ import java.util.*
 
                     val sdf = SimpleDateFormat("M월 d일")
 
+//                    새 양식 : 2022-03-05 양식
+//                    val sdf = SimpleDateFormat("yyyy-MM-dd")
+
 //                    sdf로 format해낸 String을, txtDate의 문구로 반영
                     binding.txtDate.text = sdf.format(mSelectedDateTimeCal.time)
 
