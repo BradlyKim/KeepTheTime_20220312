@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -110,6 +111,11 @@ import java.util.*
 //            기본 지도의 시작 화면 : 서울시청 => 네이버지도의 시작 좌표 : 우리집
             val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.615447, 127.083606))
             naverMap.moveCamera(cameraUpdate)
+
+//            지정한 위치에 마커를 띄우기
+            val marker = Marker()
+            marker.position = LatLng(37.615447, 127.083606)
+            marker.map = naverMap
         }
 
     }
