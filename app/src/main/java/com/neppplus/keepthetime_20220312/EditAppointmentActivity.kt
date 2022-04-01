@@ -24,6 +24,9 @@ import java.util.*
 //    선택한 약속일시를 저장하는 Calendar 변수
     val mSelectedDateTimeCal = Calendar.getInstance()   //  현재 일시가 기본 저장.(일시 + 초 + 1/1000초)
 
+//        지도에 띄워줄 목적지 표시 마커
+    var myMarker : Marker? = null  // 처음에는 목적지 마커도 없는 상태
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_appointment)
@@ -135,9 +138,15 @@ import java.util.*
 //                    Toast.LENGTH_SHORT).show()
 
 //                마커를 클릭된 지점에 설정
-                val myMarker = Marker()
-                myMarker.position = latLng   // 클릭된 지점 자체를 위치로 설정
-                myMarker.map = naverMap
+
+//                myMarker 가 만들어진게 없다면, 새로 마커 생성
+//                만들어진게 있다면, 기존 마커 재활용
+
+                if (myMarker == null){
+                    myMarker = Marker()
+                }
+                myMarker!!.position = latLng   // 클릭된 지점 자체를 위치로 설정
+                myMarker!!.map = naverMap
             }
 
         }
