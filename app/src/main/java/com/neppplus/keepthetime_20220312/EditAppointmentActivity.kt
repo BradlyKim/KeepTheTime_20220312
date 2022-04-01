@@ -14,6 +14,10 @@ import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.MarkerIcons
 import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
+import com.neppplus.keepthetime_20220312.datas.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -124,6 +128,30 @@ import java.util.*
             val lng = myMarker!!.position.longitude // 찍힌 마커의 경도 추출
 
 //            서버에 파라미터값들 전송 (API 호출)
+            apiList.postRequestAddAppointment(
+                inputTitle,
+                serverDateTimeStr,
+                inputPlaceName,
+                lat,
+                lng
+            ).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                    if(response.isSuccessful){
+//                        무조건 성공 처리. 화면 종료 
+                        Toast.makeText(mContext, "약속을 등록했습니다.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+
+            })
 
         }
 
