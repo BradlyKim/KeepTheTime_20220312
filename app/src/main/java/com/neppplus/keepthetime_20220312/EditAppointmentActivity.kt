@@ -119,6 +119,12 @@ import java.util.*
 
 //            네이버 지도에 마커로 찍어둔 장소 > 서버에 전송?
 
+//            내가 찍어둔 마커가 있다(!!)고 전제하고 코딩
+            val lat = myMarker!!.position.latitude  // 찍힌 마커의 위도 추출
+            val lng = myMarker!!.position.longitude // 찍힌 마커의 경도 추출
+
+//            서버에 파라미터값들 전송 (API 호출)
+
         }
 
     }
