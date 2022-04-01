@@ -131,8 +131,13 @@ import java.util.*
             naverMap.setOnMapClickListener { pointF, latLng ->
 
 //                클릭된 좌표 latLng 변수의 내용을 토스트로 출력
-                Toast.makeText(mContext, "위도 : ${latLng.latitude}, 경도 : ${latLng.longitude}",
-                    Toast.LENGTH_SHORT).show()
+//                Toast.makeText(mContext, "위도 : ${latLng.latitude}, 경도 : ${latLng.longitude}",
+//                    Toast.LENGTH_SHORT).show()
+
+//                마커를 클릭된 지점에 설정
+                val myMarker = Marker()
+                myMarker.position = latLng   // 클릭된 지점 자체를 위치로 설정
+                myMarker.map = naverMap
             }
 
         }
