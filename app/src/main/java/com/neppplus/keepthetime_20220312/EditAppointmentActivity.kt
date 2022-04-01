@@ -121,6 +121,12 @@ import java.util.*
                 return@setOnClickListener
             }
 
+//            약속 일시 가공전에 일자 / 시간 모두 선택했는지 체크 선택하지 않은 항목 있다면 안내 + 함수 강제 종료
+            if(binding.txtDate.text == "약속 일자" || binding.txtTime.text == "약속 시간"){
+                Toast.makeText(mContext, "일시를 모두 선택해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 //            약속 일시 : mSelectedDateTimeCal 의 일시를 => "2022-03-20 14:19:50" 형태로 가공해서 첨부
 
             val serverFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
@@ -128,7 +134,18 @@ import java.util.*
 
             val inputPlaceName = binding.edtPlaceName.text.toString()
 
+            if(inputPlaceName.isEmpty()){
+                Toast.makeText(mContext, "약속 장소 이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 //            네이버 지도에 마커로 찍어둔 장소 > 서버에 전송?
+
+//            myMarker가 실제로 만들어져있는지? 그렇지 않다면 장소 입력 안내 + 함수 종료
+            if (myMarker == null){
+                Toast.makeText(mContext, "지도를 클릭해서, 약속 장소를 선택해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
 //            내가 찍어둔 마커가 있다(!!)고 전제하고 코딩
             val lat = myMarker!!.position.latitude  // 찍힌 마커의 위도 추출
