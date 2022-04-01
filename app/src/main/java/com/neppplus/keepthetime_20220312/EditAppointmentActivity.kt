@@ -2,6 +2,7 @@
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.DatePicker
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.util.MarkerIcons
 import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -116,6 +118,11 @@ import java.util.*
             val marker = Marker()
             marker.position = LatLng(37.615447, 127.083606)
             marker.map = naverMap
+
+//            마커 색상 변경
+            marker.icon = MarkerIcons.BLACK  // 이 위에 원하는 색 커스텀
+            marker.iconTintColor = Color.parseColor("#FF0000")  // 안드로이드가 주는 색상 적용
+
         }
 
     }
