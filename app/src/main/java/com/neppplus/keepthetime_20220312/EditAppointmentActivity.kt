@@ -114,6 +114,13 @@ import java.util.*
 
             val inputTitle = binding.edtTitle.text.toString()
 
+//            받아낸 inputTitle의 내용이 비어있다면? => 토스트로 제목 입력 안내 => 지금의 이벤트 처리 강제 종료
+            if(inputTitle.isEmpty()){
+                Toast.makeText(mContext, "제목을 입력해야 합니다", Toast.LENGTH_SHORT).show()
+//                실행중인 함수 강제 종료 => 결과 임의 설정
+                return@setOnClickListener
+            }
+
 //            약속 일시 : mSelectedDateTimeCal 의 일시를 => "2022-03-20 14:19:50" 형태로 가공해서 첨부
 
             val serverFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
