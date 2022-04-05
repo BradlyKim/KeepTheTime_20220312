@@ -1,16 +1,17 @@
 package com.neppplus.keepthetime_20220312.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.neppplus.keepthetime_20220312.R
+import com.neppplus.keepthetime_20220312.ViewMapActivity
 import com.neppplus.keepthetime_20220312.datas.AppointmentData
-import com.neppplus.keepthetime_20220312.datas.UserData
+
 
 class AppointmentRecyclerAdapter(
     val mContext: Context,
@@ -33,6 +34,14 @@ class AppointmentRecyclerAdapter(
             txtTitle.text = data.title
             txtDateTime.text = data.datetime  // 임시로 문구 그대로 출력
             txtPlaceName.text = data.place
+
+            imgMap.setOnClickListener {
+//                지도만 크게 보는 화면으로 이동
+                val myIntent = Intent(mContext, ViewMapActivity::class.java)
+//                startActivity는, 화면 / 프래그먼트에서 상속 받는 기능 => Context 가 상속
+                mContext.startActivity(myIntent)
+
+            }
 
         }
     }
