@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.neppplus.keepthetime_20220312.R
+import com.neppplus.keepthetime_20220312.adapters.AppointmentRecyclerAdapter
+import com.neppplus.keepthetime_20220312.databinding.FragmentAppointmentListBinding
 import com.neppplus.keepthetime_20220312.datas.AppointmentData
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
 import retrofit2.Call
@@ -14,14 +18,19 @@ import retrofit2.Response
 
 class AppointmentListFragment : BaseFragment() {
 
+    lateinit var binding: FragmentAppointmentListBinding
+
     val mAppointmentList = ArrayList<AppointmentData>()
+
+    lateinit var mAdapter: AppointmentRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_appointment_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment_list, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,6 +44,10 @@ class AppointmentListFragment : BaseFragment() {
     }
 
     override fun setupValues() {
+
+        mAdapter = AppointmentRecyclerAdapter(mContext, mAppointmentList)
+        binding.appointmentRecyclerView.adapter = mAdapter
+        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 
@@ -56,6 +69,9 @@ class AppointmentListFragment : BaseFragment() {
 //                    서버가 내려준 약속목록 ArrayList에 등록
                     val br = response.body()!!
                     mAppointmentList.addAll(br.data.appointments)
+
+                    mAdapter.notifyDataSetChanged()
+
                 }
 
             }
