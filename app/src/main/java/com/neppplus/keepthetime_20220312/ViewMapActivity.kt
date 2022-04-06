@@ -9,6 +9,10 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_20220312.databinding.ActivityViewMapBinding
 import com.neppplus.keepthetime_20220312.datas.AppointmentData
+import com.odsay.odsayandroidsdk.API
+import com.odsay.odsayandroidsdk.ODsayData
+import com.odsay.odsayandroidsdk.ODsayService
+import com.odsay.odsayandroidsdk.OnResultCallbackListener
 
 class ViewMapActivity : BaseActivity() {
 
@@ -54,20 +58,30 @@ class ViewMapActivity : BaseActivity() {
             marker.position = latLng
             marker.map = naverMap
 
-//            정보창 띄우기
-            val infoWindow = InfoWindow()
+//            대중교통 길찾기 라이브러리 활용 => 소요 시간 + 비용 정보창 띄우기
 
-//            object: 추상클래스(생성자) {  } => 추상 클래스 객체를 담는다.
-//            object: 인터페이스 {  } => 인터페이스는 생성자 필요 없다.
-            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
-                override fun getText(p0: InfoWindow): CharSequence {
-//                    CharSequence: String 으로 생각해도 무방함.
-                    return mAppointmentData.place
+            val odSay = ODsayService.init(mContext, "OMzgFYQMZ5u0w5uU09oa//3JXhL+WTwRUSyChoGBlX4")
+
+            odSay.requestSearchPubTransPath(
+                mAppointmentData.start_longitude.toString(),   // 출발지 X좌표(경도)를 String으로
+                mAppointmentData.start_latitude.toString(),    // 출발지 Y좌표(위도)를 String으로
+                mAppointmentData.longitude.toString(),         // 도착지 X좌표(경도)를 String으로
+                mAppointmentData.latitude.toString(),          // 도착지 Y좌표(위도)를 String으로
+                null,
+                null,
+                null,
+                object : OnResultCallbackListener {
+                    override fun onSuccess(p0: ODsayData?, p1: API?) {
+                        // 길찾기 응답이 들어오면 할 일
+
+                    }
+
+                    override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                    }
+
                 }
-
-            }
-
-            infoWindow.open(marker)
+            )
 
 
 
