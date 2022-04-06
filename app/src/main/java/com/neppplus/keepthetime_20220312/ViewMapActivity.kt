@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Marker
 import com.neppplus.keepthetime_20220312.databinding.ActivityViewMapBinding
 import com.neppplus.keepthetime_20220312.datas.AppointmentData
 
@@ -42,7 +44,14 @@ class ViewMapActivity : BaseActivity() {
 //            약속 장소 => LatLng 클래스로 저장해두자
             val latLng = LatLng(mAppointmentData.latitude, mAppointmentData.longitude)
 
+//            지도 조작 코드
+            val cameraUpdate = CameraUpdate.scrollTo(latLng)
+            naverMap.moveCamera(cameraUpdate)
 
+//            마커 표시 추가
+            val marker = Marker()
+            marker.position = latLng
+            marker.map = naverMap
 
         }
 
