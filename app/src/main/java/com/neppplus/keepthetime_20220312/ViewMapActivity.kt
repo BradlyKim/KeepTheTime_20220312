@@ -62,12 +62,14 @@ class ViewMapActivity : BaseActivity() {
             infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
                 override fun getText(p0: InfoWindow): CharSequence {
 //                    CharSequence: String 으로 생각해도 무방함.
-                    return "정보 창 내용"
+                    return mAppointmentData.place
                 }
 
             }
 
             infoWindow.open(marker)
+
+
 
         }
 
