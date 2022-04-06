@@ -76,6 +76,7 @@ class ViewMapActivity : BaseActivity() {
 
                     }
 
+
                     override fun onError(p0: Int, p1: String?, p2: API?) {
 
                     }
