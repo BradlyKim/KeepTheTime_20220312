@@ -89,10 +89,16 @@ class ViewMapActivity : BaseActivity() {
 
                         Log.d("첫번째 경로 정보", firstPathObj.toString())
 
+//                        첫 추천 경로의 정보사항 추출
+                        val infoObj = firstPathObj.getJSONObject("info")
+
+//                        시간 값 / 요금 값
+                        val totalTime = infoObj.getInt("totalTime")
+                        val payment = infoObj.getInt("payment")
+
+//                        infoWindow (네이버 지도 기능)에 활용 + 로직 활용
 
                     }
-
-
                     override fun onError(p0: Int, p1: String?, p2: API?) {
 
                     }
