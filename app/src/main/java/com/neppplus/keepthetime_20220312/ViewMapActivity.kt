@@ -3,7 +3,9 @@ package com.neppplus.keepthetime_20220312
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -15,6 +17,8 @@ import com.odsay.odsayandroidsdk.API
 import com.odsay.odsayandroidsdk.ODsayData
 import com.odsay.odsayandroidsdk.ODsayService
 import com.odsay.odsayandroidsdk.OnResultCallbackListener
+import java.text.NumberFormat
+import java.util.*
 
 class ViewMapActivity : BaseActivity() {
 
@@ -106,6 +110,18 @@ class ViewMapActivity : BaseActivity() {
 
 //                                리스트뷰의 getView 함수와 비슷한 구조 (return 타입 View)
 //                                LayoutInflater로 xml을 객체로 가져와서 => 리턴해보자
+                                val view = LayoutInflater.from(mContext).inflate(R.layout.place_info_window_content, null)
+
+//                                view 변수 안에서, id를 가지고 태그들을 찾아서 (findViewById) => 변수에 저장
+                                val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
+                                val txtTotalTime = view.findViewById<TextView>(R.id.txtTotalTime)
+                                val txtPayment = view.findViewById<TextView>(R.id.txtPayment)
+
+                                txtPlaceName.text = mAppointmentData.place
+                                txtTotalTime.text = "${totalTime}분"
+                                txtPayment.text = "${NumberFormat.getNumberInstance(Locale.KOREA).format(payment)}원"
+                                
+                                return view 
 
                             }
 
