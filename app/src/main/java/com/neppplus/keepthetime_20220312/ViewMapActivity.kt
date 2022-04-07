@@ -2,6 +2,7 @@ package com.neppplus.keepthetime_20220312
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -79,9 +80,14 @@ class ViewMapActivity : BaseActivity() {
 //                        result가 JSONObject라고 명시 : resultObj로 변수 이름 설정
                         val resultObj = jsonObj.getJSONObject("result")
 
-//                        result: {  } 안에서, pointDistance 라는 이름표의 Int값 추출 예시
-                        val pointDistance = resultObj.getInt("pointDistance")
+//                        result 안에서, path라는 이름의 [ ] 추출
+//                        path가 JSONArray라고 명시 : path"Arr"로 변수 이름 설정
+                        val pathArr = resultObj.getJSONArray("path")
 
+//                        0번칸 (맨 앞칸) 에 있는 경로만 사용 => { } 추출
+                        val firstPathObj = pathArr.getJSONObject(0)
+
+                        Log.d("첫번째 경로 정보", firstPathObj.toString())
 
 
                     }
