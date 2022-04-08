@@ -147,7 +147,17 @@ class ViewMapActivity : BaseActivity() {
 
 //                        subPathArr에 들어있는 내용물의 갯수직전까지 반복 (ex. 5개 들어있다. : 0,1,2,3,4 번째 추출)
                         for (i in 0 until subPathArr.length()){
-                            Log.d("i변수값", i.toString())
+
+//                            subPath"Arr" 에서 반복문을 도는 i변수값에 맞는 위치에 있는, JSONObject { } 추출
+                            val subPathObj = subPathArr.getJSONObject(i)
+
+//                            세부 경로 중에서 정가장 목록을 주는 세부경로만 추가 파싱
+//                            subPathObj 내부에, "passStopList"라는 이름표의 데이터가 있는지? 확인
+//                            JSONObject의 isNull 함수 : 해당 이름표의 데이터가 없는가? => !(not) 연산하면 "있는가?" 질문으로 변경
+                            if ( !subPathObj.isNull("passStopList") ){
+                                val passStopListObj = subPathObj.getJSONObject("passStopList")
+                            }
+
                         }
 
 //                        도착지 마지막에 추가
