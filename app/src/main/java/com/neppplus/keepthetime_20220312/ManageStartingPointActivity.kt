@@ -22,5 +22,7 @@ class ManageStartingPointActivity : BaseActivity() {
 
     override fun setValues() {
 
+        txtTitle.text = "출발지 목록 관리"
+
     }
 }
