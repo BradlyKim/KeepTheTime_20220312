@@ -156,6 +156,14 @@ class ViewMapActivity : BaseActivity() {
 //                            JSONObject의 isNull 함수 : 해당 이름표의 데이터가 없는가? => !(not) 연산하면 "있는가?" 질문으로 변경
                             if ( !subPathObj.isNull("passStopList") ){
                                 val passStopListObj = subPathObj.getJSONObject("passStopList")
+
+//                                정거장 목록의 위도/경도 추출 => pathPoints ArrayList에 좌표 추가
+                                val stationsArr = passStopListObj.getJSONArray("stations")
+
+                                for (j in 0 until stationsArr.length()) {
+                                    val stationObj = stationsArr.getJSONObject(j)
+                                }
+
                             }
 
                         }
