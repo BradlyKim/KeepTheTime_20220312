@@ -12,6 +12,7 @@ import com.neppplus.keepthetime_20220312.api.ServerAPI
 import com.neppplus.keepthetime_20220312.databinding.ActivityLoginBinding
 import com.neppplus.keepthetime_20220312.datas.BasicResponse
 import com.neppplus.keepthetime_20220312.utils.ContextUtil
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,6 +85,15 @@ class LoginActivity : BaseActivity() {
 
                         finish()
 
+                    }
+                    else {
+//                        로그인 성공 아닌 경우 (비번, id 틀림)
+//                        BasicResponse 변환X => JSONObject로 받아내서 직접 파싱
+                        val jsonObj = JSONObject( response.errorBody()!!.string() )   // .toString() 아님!!
+
+                        val message = jsonObj.getString("message")
+
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                     }
 
                 }

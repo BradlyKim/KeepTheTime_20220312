@@ -14,7 +14,7 @@ interface APIList {
     @FormUrlEncoded   // POST, PUT, PATCH - formData(앱코드: field) 에 데이터를 첨부시에 필요한 코드
     @POST("/user")
     fun postRequestLogin(
-        @Field("email") email: String,    //
+        @Field("email") id: String,    //
         @Field("password") pw: String,
     ) : Call<BasicResponse>    // 서버의 응답 본문 (body)을, BasicResponse 클래스 형태로 자동 변환
 

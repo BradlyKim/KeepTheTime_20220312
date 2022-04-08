@@ -19,7 +19,7 @@ class ServerAPI {
         private var retrofit : Retrofit? = null  // 초기에는 만들어두지 않는다.
 
 //        어느 서버에서 기능들을 활용할지 기본 주소 명시함
-            private val BASE_URL = "https://keepthetime.xyz"
+        private val BASE_URL = "https://keepthetime.xyz"
 
 //        레트로핏 객체를 받아내는 기능 (함수)
 //        retrofit 변수에 null이 들어있다면? => 새로 retrofit 객체를 생성

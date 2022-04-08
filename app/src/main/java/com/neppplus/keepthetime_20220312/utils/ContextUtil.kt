@@ -28,11 +28,6 @@ class ContextUtil {
 
         }
 
-        fun setToken(context: Context, token: String) {
-            val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
-            pref.edit().putString(TOKEN, token).apply()
-        }
-
 //        조회 기능 : getter => 다른 클래스가 끌어다 사용함
         fun getAutoLogin( context: Context ) : Boolean {
 //          메모장을 열고, 저장된 변수를 리턴하자.
@@ -41,6 +36,15 @@ class ContextUtil {
 //          저장된 자동로그인 데이터가 없다면 내보내줄 기본값도 설정해야함.
             return pref.getBoolean( AUTO_LOGIN, false )
 
+        }
+
+
+//        TOKEN 항목에, String값을 저장 / 조회 기능
+//          - 메모장이름은 이미 만들어져있다. 항목명은 X. setter / getter 도 X.
+
+        fun setToken(context: Context, token: String) {
+            val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            pref.edit().putString(TOKEN, token).apply()
         }
 
         fun getToken(context: Context) : String {
