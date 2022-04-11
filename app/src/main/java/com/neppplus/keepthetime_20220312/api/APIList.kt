@@ -76,5 +76,14 @@ interface APIList {
     @GET("/user/place")
     fun getRequestMyStartingPoint() : Call<BasicResponse>
 
+    @FormUrlEncoded
+    @POST("/user/place")
+    fun postRequestAddStartingPoint(
+        @Field("name") title: String,
+        @Field("latitude") lat: Double,
+        @Field("longitude") lng: Double,
+        @Field("is_primary") isPrimary: Boolean,
+    ) : Call<BasicResponse>
+
 
 }

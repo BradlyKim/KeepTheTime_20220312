@@ -16,6 +16,7 @@
 
         <EditText
             android:id="@+id/edtStartingPointName"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="출발지의 이름을 메모처럼 적어주세요."/>
