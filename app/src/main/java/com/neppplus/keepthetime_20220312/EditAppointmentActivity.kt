@@ -1,28 +1,37 @@
     package com.neppplus.keepthetime_20220312
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.CameraUpdate
-import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.util.MarkerIcons
-import com.neppplus.keepthetime_20220312.adapters.StartingPointSpinnerAdapter
-import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
-import com.neppplus.keepthetime_20220312.datas.BasicResponse
-import com.neppplus.keepthetime_20220312.datas.StartingPointData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+    import android.app.DatePickerDialog
+    import android.app.TimePickerDialog
+    import android.graphics.Color
+    import androidx.appcompat.app.AppCompatActivity
+    import android.os.Bundle
+    import android.util.Log
+    import android.view.LayoutInflater
+    import android.view.View
+    import android.widget.*
+    import androidx.databinding.DataBindingUtil
+    import com.naver.maps.geometry.LatLng
+    import com.naver.maps.map.CameraUpdate
+    import com.naver.maps.map.NaverMap
+    import com.naver.maps.map.overlay.InfoWindow
+    import com.naver.maps.map.overlay.Marker
+    import com.naver.maps.map.overlay.PathOverlay
+    import com.naver.maps.map.util.MarkerIcons
+    import com.neppplus.keepthetime_20220312.adapters.StartingPointSpinnerAdapter
+    import com.neppplus.keepthetime_20220312.databinding.ActivityEditAppointmentBinding
+    import com.neppplus.keepthetime_20220312.datas.BasicResponse
+    import com.neppplus.keepthetime_20220312.datas.StartingPointData
+    import com.odsay.odsayandroidsdk.API
+    import com.odsay.odsayandroidsdk.ODsayData
+    import com.odsay.odsayandroidsdk.ODsayService
+    import com.odsay.odsayandroidsdk.OnResultCallbackListener
+    import retrofit2.Call
+    import retrofit2.Callback
+    import retrofit2.Response
+    import java.text.NumberFormat
+    import java.text.SimpleDateFormat
+    import java.util.*
+    import kotlin.collections.ArrayList
 
     class EditAppointmentActivity : BaseActivity() {
 
@@ -30,6 +39,9 @@ import kotlin.collections.ArrayList
 
 //    선택한 약속일시를 저장하는 Calendar 변수
     val mSelectedDateTimeCal = Calendar.getInstance()   //  현재 일시가 기본 저장.(일시 + 초 + 1/1000초)
+
+//        로딩이 완료된 네이버맵을 담을 변수
+var mNaverMap : NaverMap? = null // 처음에는 지도도 불러지지 않은 상태
 
 //        지도에 띄워줄 목적지 표시 마커
     var myMarker : Marker? = null  // 처음에는 목적지 마커도 없는 상태
@@ -47,6 +59,21 @@ import kotlin.collections.ArrayList
     }
 
     override fun setupEvents() {
+
+//        스피너의 아이템 선택 이벤트 처리 (출발지 변경시 대응)
+        binding.startingPointSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                val selectedStartingPoint = mStartingPointList[position]
+
+//                선택한 출발지 > 지도의 빨간 마커 위치 이동 > naverMap 변수를 받아야 사용 가능
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
 
 //        지도/스크롤뷰 상하 스크롤이 겹쳐서 지도에 문제 발생
 //        해결책 : 지도위에 텍스트뷰 하나를 덮어두고 해당 텍스트뷰에 손이 닿으면(touch) => 스크롤뷰의 스크롤 기능을 일시정지시킴.
@@ -213,12 +240,36 @@ import kotlin.collections.ArrayList
 
     override fun setValues() {
 
+//        지도 객체를 얻어오면 출발지/도착지 정보활용, 별개의 함수 실행
         binding.mapView.getMapAsync {
 
-//            it 변수 대신, 문서와 같은 이름의 변수 naverMap 에 옮겨 담고 사용
-            val naverMap = it
+//            불러진 지도를 멤버변수에 저장
+            mNaverMap = it
 
-//            기본 지도의 시작 화면 : 서울시청 => 네이버지도의 시작 좌표 : 우리집
+//            지도가 불러지도 나서 출발/도착지 새로 그리기
+            setStartAndEndToNaverMap()
+
+        }
+
+        getMyStartingPointFromServer()
+
+        mStartingPointSpinnerAdapter = StartingPointSpinnerAdapter(mContext, R.layout.starting_point_list_item, mStartingPointList)
+        binding.startingPointSpinner.adapter = mStartingPointSpinnerAdapter
+
+    }
+
+//        네이버 지도를 가지고, 출발지 도착지 등을 그려주는 함수
+        fun setStartAndEndToNaverMap(){
+
+//          혹시 지도가 안불러졌는지 체크 => 밑의 코드 실행X (안정성 보강)
+            if (mNaverMap == null){
+                return
+            }
+
+//            mNaverMap은 null이 아니다.
+            val naverMap = mNaverMap!!
+
+//                기본 지도의 시작 화면 : 서울시청 => 네이버지도의 시작 좌표 : 우리집
             val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.615447, 127.083606))
             naverMap.moveCamera(cameraUpdate)
 
@@ -247,21 +298,14 @@ import kotlin.collections.ArrayList
 //                myMarker 가 만들어진게 없다면, 새로 마커 생성
 //                만들어진게 있다면, 기존 마커 재활용
 
-                if (myMarker == null){
-                    myMarker = Marker()
-                }
-                myMarker!!.position = latLng   // 클릭된 지점 자체를 위치로 설정
-                myMarker!!.map = naverMap
-            }
-
+        if (myMarker == null){
+            myMarker = Marker()
         }
-
-        getMyStartingPointFromServer()
-
-        mStartingPointSpinnerAdapter = StartingPointSpinnerAdapter(mContext, R.layout.starting_point_list_item, mStartingPointList)
-        binding.startingPointSpinner.adapter = mStartingPointSpinnerAdapter
-
+        myMarker!!.position = latLng   // 클릭된 지점 자체를 위치로 설정
+        myMarker!!.map = naverMap
     }
+
+}
 
 //        내 출발지 목록이 어떤것들이 있는지 불러오자
         fun getMyStartingPointFromServer(){
