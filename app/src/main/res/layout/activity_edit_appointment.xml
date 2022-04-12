@@ -68,6 +68,7 @@
 
         <Spinner
             android:id="@+id/startingPointSpinner"
+            android:spinnerMode="dialog"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
