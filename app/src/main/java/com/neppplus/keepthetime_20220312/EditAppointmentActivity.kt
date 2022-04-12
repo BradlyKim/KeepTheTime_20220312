@@ -41,13 +41,13 @@
     val mSelectedDateTimeCal = Calendar.getInstance()   //  현재 일시가 기본 저장.(일시 + 초 + 1/1000초)
 
 //        로딩이 완료된 네이버맵을 담을 변수
-var mNaverMap : NaverMap? = null // 처음에는 지도도 불러지지 않은 상태
+    var mNaverMap : NaverMap? = null // 처음에는 지도도 불러지지 않은 상태
 
 //        선택한 출발지 자체를 저장할 변수
-        var mSelectedStartPoint : StartingPointData? = null   // 처음에는 출발지 선택X
+    var mSelectedStartPoint : StartingPointData? = null   // 처음에는 출발지 선택X
 
 //        출발지를 띄워줄 마커
-        var mStartMarker : Marker? = null
+    var mStartMarker : Marker? = null  // 하나의 마커만 만들어서, 출발지 변경할떄마다 위치만 변경되게
 
 //        지도에 띄워줄 목적지 표시 마커
     var myMarker : Marker? = null  // 처음에는 목적지 마커도 없는 상태
@@ -285,22 +285,29 @@ var mNaverMap : NaverMap? = null // 처음에는 지도도 불러지지 않은 �
                 return
             }
 
-//                기본 지도의 시작 화면 : 서울시청 => 네이버지도의 시작 좌표 : 우리집
-            val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.615447, 127.083606))
+//                기본 지도의 시작 화면 : 서울시청 => 네이버지도의 시작 좌표 : 선택한 출발지 좌표
+//                출발지 좌표 변수
+            val startLatLng = LatLng(mSelectedStartPoint!!.latitude, mSelectedStartPoint!!.longitude)
+
+            val cameraUpdate = CameraUpdate.scrollTo(startLatLng)
             naverMap.moveCamera(cameraUpdate)
 
-//            지정한 위치에 마커를 띄우기
-            val marker = Marker()
-            marker.position = LatLng(37.615447, 127.083606)
-            marker.map = naverMap
+//            출발지 위치에 마커를 띄우기
+//            아직 마커가 없을때만 생성
+            if (mStartMarker == null){
+                mStartMarker = Marker()
+            }
+
+            mStartMarker!!.position = startLatLng
+            mStartMarker!!.map = naverMap
 
 //            마커 색상 변경
-            marker.icon = MarkerIcons.BLACK  // 이 위에 원하는 색 커스텀
-            marker.iconTintColor = Color.parseColor("#FF0000")  // 안드로이드가 주는 색상 적용
+            mStartMarker!!.icon = MarkerIcons.BLACK  // 이 위에 원하는 색 커스텀
+            mStartMarker!!.iconTintColor = Color.parseColor("#FF0000")  // 안드로이드가 주는 색상 적용
 
 //            마커 크기 변경
-            marker.width = 50
-            marker.height = 70
+            mStartMarker!!.width = 50
+            mStartMarker!!.height = 70
 
 //            네이버 지도의 클릭 이벤트
             naverMap.setOnMapClickListener { pointF, latLng ->
