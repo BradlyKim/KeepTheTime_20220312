@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.kakao.sdk.user.UserApiClient
 import com.neppplus.keepthetime_20220312.api.APIList
 import com.neppplus.keepthetime_20220312.api.ServerAPI
 import com.neppplus.keepthetime_20220312.databinding.ActivityLoginBinding
@@ -30,6 +31,21 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        카톡 로고가 눌리면 > 카카오 로그인
+        binding.imgKakao.setOnClickListener {
+
+//            카톡 앱이 깔려있으면? 앱으로 로그인, 아니면 별도로 로그인
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(mContext)){
+                Log.d("카톡로그인", "앱으로 로그인 가능")
+            }
+            else {
+
+                Log.d("카톡로그인", "앱으로 로그인 불가")
+
+            }
+
+        }
 
         binding.autoLoginCheckBox.setOnCheckedChangeListener { compoundButton, isChecked ->
 
