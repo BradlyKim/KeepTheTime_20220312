@@ -401,6 +401,35 @@
 
                         infoWindow.open(myMarker!!)   // 도착지 마커에 정보창 띄우기
 
+//                        첫번째 경로의 > 세부 경로 파싱 > 경로선 기능으로 그려주기
+
+                        val subPathArr = firstPathObj.getJSONArray("subPath")
+
+                        for (i in 0 until subPathArr.length()){
+
+                            val subPathObj = subPathArr.getJSONObject(i)
+
+                            if (!subPathObj.isNull("passStopList")){
+
+                                val passStopListObj = subPathObj.getJSONObject("passStopList")
+
+                                val stationsArr = passStopListObj.getJSONArray("stations")
+
+                                for (j in 0 until stationsArr.length()){
+
+                                    val stationObj = stationsArr.getJSONObject(j)
+
+                                    val stationLat = stationObj.getString("y").toDouble()
+                                    val stationLng = stationObj.getString("x").toDouble()
+
+//                                     정거장 좌표를 네이버 좌표체계로 만들자.
+                                    val stationLatLng = LatLng(stationLat, stationLng)
+
+                                }
+                            }
+
+                        }
+
                     }
 
                     override fun onError(p0: Int, p1: String?, p2: API?) {
