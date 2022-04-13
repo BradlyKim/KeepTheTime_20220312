@@ -51,10 +51,13 @@
     var mStartMarker : Marker? = null  // 하나의 마커만 만들어서, 출발지 변경할떄마다 위치만 변경되게
 
 //        지도에서 클릭한 목적지 좌표
-        var mAppointmentLatLng : LatLng? = null   // 지도에서 클릭한 좌표. 처음에는 아직 없다.
+    var mAppointmentLatLng : LatLng? = null   // 지도에서 클릭한 좌표. 처음에는 아직 없다.
 
 //        지도에 띄워줄 목적지 표시 마커
     var myMarker : Marker? = null  // 처음에는 목적지 마커도 없는 상태
+
+//        경로선도 하나만 만들고 계속 재활용
+    var mPath : PathOverlay? = null   // 처음에는 경로선도 없는 상태
 
 //        내가 만들어둔 출발지 목록 List
     val mStartingPointList = ArrayList<StartingPointData>()
@@ -402,7 +405,10 @@
                         infoWindow.open(myMarker!!)   // 도착지 마커에 정보창 띄우기
 
 //                        경로선 자체 생성, 첫 좌표는 출발지
-                        val path = PathOverlay()
+                        if (mPath == null){
+                            mPath = PathOverlay()
+                        }
+
                         val pathCoordList = ArrayList<LatLng>()
 
                         pathCoordList.add(startLatLng)
@@ -442,8 +448,8 @@
                         pathCoordList.add(mAppointmentLatLng!!)
 
 //                        모든 좌표가 추가되었으니, 지도에 나오도록
-                        path.coords = pathCoordList
-                        path.map = naverMap
+                        mPath!!.coords = pathCoordList
+                        mPath!!.map = naverMap
 
                     }
 
