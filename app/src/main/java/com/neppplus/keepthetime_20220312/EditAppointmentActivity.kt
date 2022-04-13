@@ -345,6 +345,30 @@
             myMarker!!.position = mAppointmentLatLng!!
             myMarker!!.map = naverMap
 
+//            출발지/도착지가 모두 반영되는 구조 완성
+//            길찾기 API호출 => 결과 분석해서 화면에 추가 반영 ( 선 긋기 / 정보 표시 )
+
+            val odSay = ODsayService.init(mContext, "OMzgFYQMZ5u0w5uU09oa//3JXhL+WTwRUSyChoGBlX4")
+            odSay.requestSearchPubTransPath(
+                mSelectedStartPoint!!.longitude.toString(),
+                mSelectedStartPoint!!.latitude.toString(),
+                mAppointmentLatLng!!.longitude.toString(),
+                mAppointmentLatLng!!.latitude.toString(),
+                null,
+                null,
+                null,
+                object : OnResultCallbackListener {
+                    override fun onSuccess(p0: ODsayData?, p1: API?) {
+
+                    }
+
+                    override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                    }
+
+                }
+            )
+
 }
 
 //        내 출발지 목록이 어떤것들이 있는지 불러오자
