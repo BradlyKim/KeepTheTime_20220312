@@ -401,7 +401,13 @@
 
                         infoWindow.open(myMarker!!)   // 도착지 마커에 정보창 띄우기
 
-//                        첫번째 경로의 > 세부 경로 파싱 > 경로선 기능으로 그려주기
+//                        경로선 자체 생성, 첫 좌표는 출발지
+                        val path = PathOverlay()
+                        val pathCoordList = ArrayList<LatLng>()
+
+                        pathCoordList.add(startLatLng)
+
+//                        첫번째 경로의 > 세부 경로 파싱 > 경로선 기능으로 그려주기 (정거장 좌표 목록을 경로선 좌표목록에 추가)
 
                         val subPathArr = firstPathObj.getJSONArray("subPath")
 
@@ -422,13 +428,22 @@
                                     val stationLat = stationObj.getString("y").toDouble()
                                     val stationLng = stationObj.getString("x").toDouble()
 
-//                                     정거장 좌표를 네이버 좌표체계로 만들자.
+//                                     정거장 좌표를 네이버 좌표체계로 만들자.  => 경로선의 좌표로 추가
                                     val stationLatLng = LatLng(stationLat, stationLng)
+
+                                    pathCoordList.add(stationLatLng)
 
                                 }
                             }
 
                         }
+
+//                        마지막으로 목적지 좌표 추가
+                        pathCoordList.add(mAppointmentLatLng!!)
+
+//                        모든 좌표가 추가되었으니, 지도에 나오도록
+                        path.coords = pathCoordList
+                        path.map = naverMap
 
                     }
 
