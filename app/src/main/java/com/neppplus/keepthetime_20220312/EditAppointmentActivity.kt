@@ -25,6 +25,7 @@
     import com.odsay.odsayandroidsdk.ODsayData
     import com.odsay.odsayandroidsdk.ODsayService
     import com.odsay.odsayandroidsdk.OnResultCallbackListener
+    import org.w3c.dom.Text
     import retrofit2.Call
     import retrofit2.Callback
     import retrofit2.Response
@@ -377,7 +378,29 @@
                         val payment = infoObj.getInt("payment")
 
 //                        네이버 지도의 정보창 기능에 연동
-                        
+
+                        val infoWindow = InfoWindow()
+
+                        infoWindow.adapter = object : InfoWindow.DefaultViewAdapter(mContext){
+                            override fun getContentView(p0: InfoWindow): View {
+                                val view = LayoutInflater.from(mContext).inflate(R.layout.place_info_window_content, null)
+
+                                val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
+                                val txtTotalTime = view.findViewById<TextView>(R.id.txtTotalTime)
+                                val txtPayment = view.findViewById<TextView>(R.id.txtPayment)
+
+                                txtPlaceName.text = binding.edtPlaceName.text.toString()
+                                txtTotalTime.text = "${totalTime}분 소요"
+                                txtPayment.text = "${NumberFormat.getNumberInstance(Locale.KOREA).format(payment)}원"
+
+                                return view
+
+                            }
+
+                        }
+
+                        infoWindow.open(myMarker!!)   // 도착지 마커에 정보창 띄우기
+
                     }
 
                     override fun onError(p0: Int, p1: String?, p2: API?) {
