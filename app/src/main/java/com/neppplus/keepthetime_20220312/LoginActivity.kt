@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.facebook.CallbackManager
 import com.kakao.sdk.user.UserApiClient
 import com.neppplus.keepthetime_20220312.api.APIList
 import com.neppplus.keepthetime_20220312.api.ServerAPI
@@ -23,6 +24,9 @@ class LoginActivity : BaseActivity() {
 //    binding : 어떤 xml을 접근하는지 자료형으로 설정
     lateinit var binding : ActivityLoginBinding
 
+//    페북 로그인 화면에 다녀오면 할 일을 관리해주는 변수
+    lateinit var mCallbackManager : CallbackManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -31,6 +35,13 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        페북 로고가 눌리면 > 페이스북 로그인
+        binding.imgFacebook.setOnClickListener {
+
+//            페북 로그인 관련된 코드 준비가 필요함 (준비 먼저 하고 로그인 실행)
+
+        }
 
 //        카톡 로고가 눌리면 > 카카오 로그인
         binding.imgKakao.setOnClickListener {
@@ -141,10 +152,18 @@ class LoginActivity : BaseActivity() {
 
     override fun setValues() {
 
+//        페북로그인 - 콜백 관리 기능 초기화
+        mCallbackManager = CallbackManager.Factory.create()
+
 //        저장해둔 자동로그인 여부를, 체크박스의 isChecked 속성에 대입
 
          binding.autoLoginCheckBox.isChecked = ContextUtil.getAutoLogin(mContext)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 //    카톡 앱이건 다른 방식이건 카카오 로그인이 되었다면 실행할 함수
