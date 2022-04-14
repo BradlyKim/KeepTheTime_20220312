@@ -154,7 +154,7 @@ class LoginActivity : BaseActivity() {
         UserApiClient.instance.me { user, error ->
 
 //            retrofit 처럼 카카오가 변수에 모든것을 담아서 내려주는 형태
-            Log.d("카카오로그인", "사용자 id값: ${user!!.id}")
+               Log.d("카카오로그인", "사용자 id값: ${user!!.id}")
             Log.d("카카오로그인", "사용자 닉네임: ${user!!.kakaoAccount!!.profile!!.nickname}")
 
 //            우리 API서버에 쇼셜로그인 API 호출 => 성공시 로그인 처리
@@ -189,7 +189,6 @@ class LoginActivity : BaseActivity() {
             })
 
         }
-
 
     }
 
