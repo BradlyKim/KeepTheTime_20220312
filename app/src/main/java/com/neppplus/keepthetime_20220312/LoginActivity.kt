@@ -8,6 +8,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.kakao.sdk.user.UserApiClient
 import com.neppplus.keepthetime_20220312.api.APIList
 import com.neppplus.keepthetime_20220312.api.ServerAPI
@@ -18,6 +22,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class LoginActivity : BaseActivity() {
 
@@ -39,8 +44,28 @@ class LoginActivity : BaseActivity() {
 //        페북 로고가 눌리면 > 페이스북 로그인
         binding.imgFacebook.setOnClickListener {
 
-//            페북 로그인 관련된 코드 준비가 필요함 (준비 먼저 하고 로그인 실행)
+//            페북 로그인 관련된 코드 준비가 필요함 (준비 먼저 하고 로그인 실행) : mCallbackManager 세팅
 
+//            1. 로그인 화면에 다녀오면 어떤 행동을 할지? 할 일 설정
+            LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult>{
+                override fun onSuccess(result: LoginResult?) {
+
+                }
+
+                override fun onCancel() {
+
+                }
+
+                override fun onError(error: FacebookException?) {
+
+                }
+
+            })
+
+//            2. 실제 로그인 실행
+
+//            이 화면에서 공개프로필/이메일 권한 (예시) 을 확인하면서 로그인 실행
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
         }
 
 //        카톡 로고가 눌리면 > 카카오 로그인
