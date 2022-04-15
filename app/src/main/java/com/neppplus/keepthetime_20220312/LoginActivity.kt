@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.kakao.sdk.user.UserApiClient
@@ -49,6 +47,22 @@ class LoginActivity : BaseActivity() {
 //            1. 로그인 화면에 다녀오면 어떤 행동을 할지? 할 일 설정
             LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult>{
                 override fun onSuccess(result: LoginResult?) {
+
+//                    페북 로그인 성공 > 페북 서버의 액세스 토큰값 내려줌
+
+//                    받은 토큰으로 내 정보도 받아오자 => GraphRequest 클래스 활용
+
+//                    1. 내 정보를 받아오면 뭘 할건지? 계획 작성
+                    val graphRequest = GraphRequest.newMeRequest(result!!.accessToken, object : GraphRequest.GraphJSONObjectCallback {
+                        override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
+
+                        }
+
+                    })
+
+//                    2. 실제 내 정보 받아오기 실행
+                    graphRequest.executeAsync()
+
 
                 }
 
